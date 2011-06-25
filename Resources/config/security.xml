@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="evario_janrain.auth" class="Limelight\JanrainBundle\Security\Authentication\Provider\JanrainProvider" public="false">
+        </service>
+
+        <service id="evario_janrain.security.authentication.listener"
+                 class="Limelight\JanrainBundle\Security\Firewall\JanrainListener"
+                 parent="security.authentication.listener.abstract"
+                 abstract="true">
+        </service>
+
+        <service id="evario_janrain.security.authentication.entry_point" class="Limelight\JanrainBundle\Security\EntryPoint\JanrainAuthenticationEntryPoint" public="false" abstract="true">
+        </service>
+
+        <service id="evario.janrain" class="Limelight\JanrainBundle\Security\User\Provider\JanrainProvider">
+            <argument type="service" id="@fos_user.user_manager" />
+            <argument type="service" id="@validator" />
+            <argument type="collection" />
+            <argument type="service" id="@service_container" />
+        </service>
+        
+    </services>
+</container>
